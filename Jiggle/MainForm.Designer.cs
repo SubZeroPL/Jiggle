@@ -46,7 +46,7 @@
             this.cbEnabled.TabIndex = 0;
             this.cbEnabled.Text = "Enabled";
             this.cbEnabled.UseVisualStyleBackColor = true;
-            this.cbEnabled.Click += new System.EventHandler(this.cbEnabled_Click);
+            this.cbEnabled.CheckedChanged += new System.EventHandler(this.cbEnabled_CheckedChanged);
             // 
             // jiggleTimer
             // 
