@@ -1,5 +1,5 @@
 # Jiggle
-Simple mouse jiggle app (prevents your computer going to sleep/starting screensaver).
+Simple mouse jiggle app (prevents your computer from going to sleep/starting screensaver).
 
 Requires .NET Core 3.1
 
