@@ -117,41 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="cbEnabled.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="cbEnabled.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
-  </data>
   <data name="cbEnabled.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 17</value>
-  </data>
-  <data name="cbEnabled.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>67, 17</value>
   </data>
   <data name="cbEnabled.Text" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Aktywne</value>
   </data>
-  <data name="&gt;&gt;cbEnabled.Name" xml:space="preserve">
-    <value>cbEnabled</value>
-  </data>
-  <data name="&gt;&gt;cbEnabled.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbEnabled.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;cbEnabled.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="jiggleTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="notifyIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>124, 17</value>
-  </metadata>
   <data name="notifyIcon.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAtLQAAAEAGAC4jAEAFgAAACgAAAC0AAAAaAEAAAEAGAAAAAAAAAAAAGAAAABgAAAAAAAAAAAA
@@ -1850,21 +1822,12 @@
         8AA=
 </value>
   </data>
-  <data name="notifyIcon.Text" xml:space="preserve">
-    <value>Jiggle</value>
-  </data>
-  <data name="notifyIcon.Visible" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <metadata name="icons.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>224, 17</value>
-  </metadata>
   <data name="icons.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABS
-        BwAAAk1TRnQBSQFMAgEBAgEAAWgBAAFoAQABEAEAARABAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        BwAAAk1TRnQBSQFMAgEBAgEAAWABAAFgAQABEAEAARABAAT/ARkBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEYBgABDNsAAY8BZQE3Aa8BfAFDEv8BxwGlAX0BsgF+AUUSAAFIATMBbQFYAT4BhgKA
         Af8CgAH/AoAB/wKAAf8CgAH/AoAB/wFkAVMB1AFZAUABinIAAbMBgQFKAbIBfwFJFf8BtQGDAU0BtQGD
         AU0PAAFaAUEBlAFZAUABkgKAAf8CgAH/AoAB/wKAAf8CgAH/AoAB/wKAAf8BWwFCAZoBWwFCAZpsAAEv
@@ -1898,169 +1861,45 @@
         AQEEAAHOAWMBzgFjBAAE/wQACw==
 </value>
   </data>
-  <data name="options.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="options.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="cbRightClick.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbRightClick.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 65</value>
-  </data>
   <data name="cbRightClick.Size" type="System.Drawing.Size, System.Drawing">
-    <value>201, 17</value>
-  </data>
-  <data name="cbRightClick.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>204, 17</value>
   </data>
   <data name="cbRightClick.Text" xml:space="preserve">
-    <value>Right-click on icon closes application</value>
-  </data>
-  <data name="&gt;&gt;cbRightClick.Name" xml:space="preserve">
-    <value>cbRightClick</value>
-  </data>
-  <data name="&gt;&gt;cbRightClick.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbRightClick.Parent" xml:space="preserve">
-    <value>options</value>
-  </data>
-  <data name="&gt;&gt;cbRightClick.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="cbCloseMinimize.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbCloseMinimize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
+    <value>Prawy klik na ikonie zamyka aplikację</value>
   </data>
   <data name="cbCloseMinimize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 17</value>
-  </data>
-  <data name="cbCloseMinimize.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>203, 17</value>
   </data>
   <data name="cbCloseMinimize.Text" xml:space="preserve">
-    <value>Close button minimizes window</value>
-  </data>
-  <data name="&gt;&gt;cbCloseMinimize.Name" xml:space="preserve">
-    <value>cbCloseMinimize</value>
-  </data>
-  <data name="&gt;&gt;cbCloseMinimize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbCloseMinimize.Parent" xml:space="preserve">
-    <value>options</value>
-  </data>
-  <data name="&gt;&gt;cbCloseMinimize.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="cbMinimize.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="cbMinimize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
+    <value>Przycisk zamykania minimalizuje okno</value>
   </data>
   <data name="cbMinimize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 17</value>
-  </data>
-  <data name="cbMinimize.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+    <value>138, 17</value>
   </data>
   <data name="cbMinimize.Text" xml:space="preserve">
-    <value>Minimize after enabling</value>
-  </data>
-  <data name="&gt;&gt;cbMinimize.Name" xml:space="preserve">
-    <value>cbMinimize</value>
-  </data>
-  <data name="&gt;&gt;cbMinimize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;cbMinimize.Parent" xml:space="preserve">
-    <value>options</value>
-  </data>
-  <data name="&gt;&gt;cbMinimize.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="options.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 35</value>
+    <value>Minimalizuj po aktywacji</value>
   </data>
   <data name="options.Size" type="System.Drawing.Size, System.Drawing">
-    <value>213, 101</value>
-  </data>
-  <data name="options.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>216, 101</value>
   </data>
   <data name="options.Text" xml:space="preserve">
-    <value>Options</value>
+    <value>Opcje</value>
   </data>
-  <data name="&gt;&gt;options.Name" xml:space="preserve">
-    <value>options</value>
+  <data name="MainForm_WriteConfig_Error" xml:space="preserve">
+    <value>Błąd</value>
   </data>
-  <data name="&gt;&gt;options.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;options.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;options.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="$this.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>233, 147</value>
+  <data name="notifyIcon.Text" xml:space="preserve">
+    <value>Jiggle</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Jiggle</value>
   </data>
-  <data name="&gt;&gt;jiggleTimer.Name" xml:space="preserve">
-    <value>jiggleTimer</value>
-  </data>
-  <data name="&gt;&gt;jiggleTimer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;notifyIcon.Name" xml:space="preserve">
-    <value>notifyIcon</value>
-  </data>
-  <data name="&gt;&gt;notifyIcon.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NotifyIcon, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;icons.Name" xml:space="preserve">
-    <value>icons</value>
-  </data>
-  <data name="&gt;&gt;icons.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MainForm</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="MainForm_WriteConfig_Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
   <data name="MainForm_WriteConfig_CannotSaveConfiguration" xml:space="preserve">
-    <value>Cannot save configuration.
+    <value>Nie można zapisać konfiguracji.
 {0}</value>
   </data>
   <data name="MainForm_ReadConfig_CannotLoadConfiguration" xml:space="preserve">
-    <value>Cannot load configuration, using default values.
+    <value>Nie można wczytać konfiguracji, użyto wartości domyślnych.
 {0}</value>
   </data>
 </root>

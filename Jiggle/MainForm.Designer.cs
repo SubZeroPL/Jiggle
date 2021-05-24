@@ -35,16 +35,17 @@
             this.jiggleTimer = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.icons = new System.Windows.Forms.ImageList(this.components);
+            this.options = new System.Windows.Forms.GroupBox();
+            this.cbRightClick = new System.Windows.Forms.CheckBox();
+            this.cbCloseMinimize = new System.Windows.Forms.CheckBox();
+            this.cbMinimize = new System.Windows.Forms.CheckBox();
+            this.options.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbEnabled
             // 
-            this.cbEnabled.AutoSize = true;
-            this.cbEnabled.Location = new System.Drawing.Point(12, 12);
+            resources.ApplyResources(this.cbEnabled, "cbEnabled");
             this.cbEnabled.Name = "cbEnabled";
-            this.cbEnabled.Size = new System.Drawing.Size(65, 17);
-            this.cbEnabled.TabIndex = 0;
-            this.cbEnabled.Text = "Enabled";
             this.cbEnabled.UseVisualStyleBackColor = true;
             this.cbEnabled.CheckedChanged += new System.EventHandler(this.cbEnabled_CheckedChanged);
             // 
@@ -55,10 +56,8 @@
             // 
             // notifyIcon
             // 
-            this.notifyIcon.Icon = ((System.Drawing.Icon) (resources.GetObject("notifyIcon.Icon")));
-            this.notifyIcon.Text = "Jiggle";
-            this.notifyIcon.Visible = true;
-            this.notifyIcon.Click += new System.EventHandler(this.notifyIcon_Click);
+            resources.ApplyResources(this.notifyIcon, "notifyIcon");
+            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
             // 
             // icons
             // 
@@ -67,11 +66,38 @@
             this.icons.Images.SetKeyName(0, "icon.ico");
             this.icons.Images.SetKeyName(1, "icon_active.ico");
             // 
+            // options
+            // 
+            resources.ApplyResources(this.options, "options");
+            this.options.Controls.Add(this.cbRightClick);
+            this.options.Controls.Add(this.cbCloseMinimize);
+            this.options.Controls.Add(this.cbMinimize);
+            this.options.Name = "options";
+            this.options.TabStop = false;
+            // 
+            // cbRightClick
+            // 
+            resources.ApplyResources(this.cbRightClick, "cbRightClick");
+            this.cbRightClick.Name = "cbRightClick";
+            this.cbRightClick.UseVisualStyleBackColor = true;
+            // 
+            // cbCloseMinimize
+            // 
+            resources.ApplyResources(this.cbCloseMinimize, "cbCloseMinimize");
+            this.cbCloseMinimize.Name = "cbCloseMinimize";
+            this.cbCloseMinimize.UseVisualStyleBackColor = true;
+            // 
+            // cbMinimize
+            // 
+            resources.ApplyResources(this.cbMinimize, "cbMinimize");
+            this.cbMinimize.Name = "cbMinimize";
+            this.cbMinimize.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(88, 40);
+            this.Controls.Add(this.options);
             this.Controls.Add(this.cbEnabled);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
@@ -79,11 +105,19 @@
             this.Name = "MainForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "Jiggle";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.options.ResumeLayout(false);
+            this.options.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.CheckBox cbCloseMinimize;
+        private System.Windows.Forms.CheckBox cbRightClick;
+
+        private System.Windows.Forms.GroupBox options;
+        private System.Windows.Forms.CheckBox cbMinimize;
 
         private System.Windows.Forms.ImageList icons;
 
