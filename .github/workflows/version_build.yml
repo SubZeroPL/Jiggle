@@ -4,7 +4,6 @@ on:
   push:
     tags:
     - v*
-  workflow_dispatch:
 
 jobs:
   build:
@@ -74,7 +73,7 @@ jobs:
           prerelease: false
           body: |
             ## Release
-            Jiggle v${{ steps.get_version.outputs.RELEASE_VERSION }}
+            Jiggle v${{ steps.get_version.outputs.version }}
             Changelog:
             ${{ steps.changelog.outputs.changelog }}
       - name: Upload x86 Release
