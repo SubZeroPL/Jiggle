@@ -1,0 +1,99 @@
+name: Build new version
+
+on:
+  push:
+    tags:
+    - v*
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build x86 version
+      run: dotnet publish -r win-x86 -c Release /p:PublishSingleFile=true --self-contained false
+    - name: Build x64 version
+      run: dotnet publish -r win-x64 -c Release /p:PublishSingleFile=true --self-contained false
+    - name: Upload x86 artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Jiggle-x86.exe
+        path: Jiggle/bin/Release/netcoreapp3.1/win-x86/publish/Jiggle.exe
+    - name: Upload x64 artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Jiggle-x64.exe
+        path: Jiggle/bin/Release/netcoreapp3.1/win-x64/publish/Jiggle.exe
+  
+  release:
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Get version
+        id: get_version
+        run: echo "::set-output name=version::$((Select-Xml -Path .\Jiggle\Jiggle.csproj -XPath "/Project/PropertyGroup/AssemblyVersion").Node.InnerXML)"
+        shell: pwsh
+      - name: Generate changelog
+        id: changelog
+        uses: metcalfc/changelog-generator@v1.0.0
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Download x86 build
+        id: download_artifacts_x86
+        uses: actions/download-artifact@v2
+        with:
+          name: Jiggle-x86.exe
+          path: win-x86
+      - name: Download x64 build
+        id: download_artifacts_x64
+        uses: actions/download-artifact@v2
+        with:
+          name: Jiggle-x64.exe
+          path: win-x64
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: v${{ steps.get_version.outputs.version }}
+          release_name: Jiggle Release v${{ steps.get_version.outputs.version }}
+          draft: true
+          prerelease: false
+          body: |
+            ## Release
+            Jiggle v${{ steps.get_version.outputs.RELEASE_VERSION }}
+            Changelog:
+            ${{ steps.changelog.outputs.changelog }}
+      - name: Upload x86 Release
+        id: upload-release-asset-x86
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: win-x86/Jiggle.exe
+          asset_name: Jiggle-x86_${{ steps.get_version.outputs.version }}.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
+      - name: Upload x64 Release
+        id: upload-release-asset-x64
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: win-x64/Jiggle.exe
+          asset_name: Jiggle-x64_${{ steps.get_version.outputs.version }}.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
