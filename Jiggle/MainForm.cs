@@ -1,11 +1,12 @@
 ﻿#nullable enable
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Trinet.Core.IO.Ntfs;
 
@@ -56,10 +57,18 @@ namespace Jiggle
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         private static extern ExecutionState SetThreadExecutionState(ExecutionState esFlags);
 
+        /// <summary>
+        /// Get path of launcher executable.
+        /// </summary>
+        /// <returns>Path of launcher executable</returns>
+        private static string GetPath()
+        {
+            return Process.GetCurrentProcess().MainModule.FileName;
+        }
+
         private void ReadConfig()
         {
-            var path = Assembly.GetExecutingAssembly().Location;
-            var adsi = FileSystem.GetAlternateDataStream(path, StreamName);
+            var adsi = FileSystem.GetAlternateDataStream(GetPath(), StreamName);
             try
             {
                 var stream = adsi.OpenRead();
@@ -94,8 +103,7 @@ namespace Jiggle
 
         private void WriteConfig()
         {
-            var path = Assembly.GetExecutingAssembly().Location;
-            var adsi = FileSystem.GetAlternateDataStream(path, StreamName);
+            var adsi = FileSystem.GetAlternateDataStream(GetPath(), StreamName);
             try
             {
                 adsi.Delete();
@@ -159,24 +167,6 @@ namespace Jiggle
             }
         }
 
-        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
-        {
-            // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
-            switch (e.Button)
-            {
-                case MouseButtons.Left when Visible:
-                    Hide();
-                    break;
-                case MouseButtons.Left:
-                    Show();
-                    break;
-                case MouseButtons.Right when cbRightClick.Checked:
-                    _fromIcon = true;
-                    Close();
-                    break;
-            }
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason != CloseReason.UserClosing || !cbCloseMinimize.Checked || _fromIcon) return;
@@ -190,6 +180,39 @@ namespace Jiggle
             EsContinuous = 0x80000000,
             EsSystemRequired = 0x00000001,
             EsDisplayRequired = 0x00000002
+        }
+
+        private bool isSingleClick;
+        
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            isSingleClick = false;
+            Visible = e.Button switch
+            {
+                MouseButtons.Left => !Visible,
+                _ => Visible
+            };
+        }
+
+        private async void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            isSingleClick = true;
+            await Task.Delay(SystemInformation.DoubleClickTime);
+            if (!isSingleClick) return;
+            
+            // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    cbEnabled.Checked = !cbEnabled.Checked;
+                    break;
+                case MouseButtons.Right when cbRightClick.Checked:
+                    _fromIcon = true;
+                    Close();
+                    break;
+            }
+
+            isSingleClick = false;
         }
     }
 }
