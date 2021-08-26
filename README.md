@@ -13,4 +13,4 @@ Program configuration is saved in _alternate data stream_, so it is recommended 
 
 On first run you'll get an error that configuration can't be loaded - that's to be expected as ADS that's containing it doesn't exist yet.
 
-I did not test it on Linux.
+Works on Windows only ATM because of no GUI implementation in .NET for Linux.
