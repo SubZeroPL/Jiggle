@@ -19,7 +19,7 @@ namespace Jiggle
         private const int IconInactive = 0;
         private const int IconActive = 1;
 
-        private Config _config = new Config
+        private Config _config = new()
         {
             Enabled = false, MinimizeAfterEnabling = false, CloseButtonMinimizesWindow = false,
             RightClickOnIconClosesApplication = false
@@ -27,13 +27,13 @@ namespace Jiggle
 
         private bool _fromIcon;
 
-        private readonly ResourceManager _rm = new ResourceManager(typeof(MainForm));
+        private readonly ResourceManager _rm = new(typeof(MainForm));
 
         public MainForm()
         {
             InitializeComponent();
             ReadConfig();
-            Application.ApplicationExit += (sender, args) => { WriteConfig(); };
+            Application.ApplicationExit += (_, _) => { WriteConfig(); };
         }
 
         /// <summary>
@@ -61,9 +61,9 @@ namespace Jiggle
         /// Get path of launcher executable.
         /// </summary>
         /// <returns>Path of launcher executable</returns>
-        private static string GetPath()
+        private static string? GetPath()
         {
-            return Process.GetCurrentProcess().MainModule.FileName;
+            return Process.GetCurrentProcess().MainModule?.FileName;
         }
 
         private void ReadConfig()
@@ -76,7 +76,12 @@ namespace Jiggle
                 using (var sr = new StreamReader(stream))
                 {
                     var config = sr.ReadToEnd();
-                    _config = JsonSerializer.Deserialize<Config>(config);
+                    var localConfig = JsonSerializer.Deserialize<Config>(config);
+                    if (localConfig != null)
+                    {
+                        _config = localConfig;
+                    }
+
                     cbMinimize.Checked = _config.MinimizeAfterEnabling;
                     cbCloseMinimize.Checked = _config.CloseButtonMinimizesWindow;
                     cbRightClick.Checked = _config.RightClickOnIconClosesApplication;
@@ -90,12 +95,29 @@ namespace Jiggle
 
                 Shown += Handler;
             }
+            catch (FileNotFoundException fnf)
+            {
+                notifyIcon.BalloonTipIcon = ToolTipIcon.Error;
+                notifyIcon.BalloonTipTitle = _rm.GetString("MainForm_WriteConfig_Error") ?? "Error";
+                var message = fnf.Message;
+                if (fnf.FileName != null && fnf.FileName.Contains(StreamName))
+                {
+                    message = string.Empty;
+                }
+
+                notifyIcon.BalloonTipText =
+                    string.Format(_rm.GetString("MainForm_ReadConfig_CannotLoadConfiguration") ?? string.Empty,
+                        message);
+                notifyIcon.ShowBalloonTip(5000);
+            }
             catch (Exception e)
             {
                 notifyIcon.BalloonTipIcon = ToolTipIcon.Error;
-                notifyIcon.BalloonTipTitle = _rm.GetString("MainForm_WriteConfig_Error");
+                notifyIcon.BalloonTipTitle = _rm.GetString("MainForm_WriteConfig_Error") ?? "Error";
                 notifyIcon.BalloonTipText =
-                    string.Format(_rm.GetString("MainForm_ReadConfig_CannotLoadConfiguration") ?? string.Empty,
+                    string.Format(
+                        _rm.GetString("MainForm_ReadConfig_CannotLoadConfiguration") ??
+                        "Cannot load configuration, using default values.\n{0}",
                         e.Message);
                 notifyIcon.ShowBalloonTip(5000);
             }
@@ -120,9 +142,11 @@ namespace Jiggle
             catch (Exception e)
             {
                 notifyIcon.BalloonTipIcon = ToolTipIcon.Error;
-                notifyIcon.BalloonTipTitle = _rm.GetString("MainForm_WriteConfig_Error");
+                notifyIcon.BalloonTipTitle = _rm.GetString("MainForm_WriteConfig_Error") ?? "Error";
                 notifyIcon.BalloonTipText =
-                    string.Format(_rm.GetString("MainForm_WriteConfig_CannotSaveConfiguration") ?? string.Empty,
+                    string.Format(
+                        _rm.GetString("MainForm_WriteConfig_CannotSaveConfiguration") ??
+                        "Cannot save configuration.\n{0}",
                         e.Message);
                 notifyIcon.ShowBalloonTip(5000);
             }
@@ -130,15 +154,16 @@ namespace Jiggle
 
         private static void Jiggle()
         {
-            var input = new INPUT {U = new InputUnion {mi = new MOUSEINPUT()}, type = 0};
+            var input = new INPUT { U = new InputUnion { mi = new MOUSEINPUT() }, type = 0 };
             input.U.mi.dx = 0;
             input.U.mi.dy = 0;
             input.U.mi.mouseData = 0;
             input.U.mi.dwFlags = 1;
             input.U.mi.time = 0;
-            input.U.mi.dwExtraInfo = (UIntPtr) 0;
-            var pInputs = new[] {input};
-            SendInput((uint) pInputs.Length, pInputs, INPUT.Size);
+            // ReSharper disable once RedundantCast - needed for .NET 6
+            input.U.mi.dwExtraInfo = (UIntPtr)0;
+            var pInputs = new[] { input };
+            SendInput((uint)pInputs.Length, pInputs, INPUT.Size);
         }
 
         private void jiggleTimer_Tick(object sender, EventArgs e)
@@ -182,11 +207,11 @@ namespace Jiggle
             EsDisplayRequired = 0x00000002
         }
 
-        private bool isSingleClick;
-        
+        private bool _isSingleClick;
+
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            isSingleClick = false;
+            _isSingleClick = false;
             Visible = e.Button switch
             {
                 MouseButtons.Left => !Visible,
@@ -196,10 +221,10 @@ namespace Jiggle
 
         private async void notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
-            isSingleClick = true;
+            _isSingleClick = true;
             await Task.Delay(SystemInformation.DoubleClickTime);
-            if (!isSingleClick) return;
-            
+            if (!_isSingleClick) return;
+
             // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
             switch (e.Button)
             {
@@ -212,7 +237,7 @@ namespace Jiggle
                     break;
             }
 
-            isSingleClick = false;
+            _isSingleClick = false;
         }
     }
 }

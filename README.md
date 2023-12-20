@@ -1,7 +1,7 @@
 # Jiggle
 Simple mouse jiggle app (prevents your computer from going to sleep/starting screensaver).
 
-Requires .NET Core 3.1
+Created with .NET 6.0
 
 ## Building
 - `git clone https://github.com/SubZeroPL/Jiggle`
