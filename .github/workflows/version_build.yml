@@ -55,13 +55,13 @@ jobs:
           myToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Download x86 build
         id: download_artifacts_x86
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: Jiggle-x86.exe
           path: win-x86
       - name: Download x64 build
         id: download_artifacts_x64
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: Jiggle-x64.exe
           path: win-x64
