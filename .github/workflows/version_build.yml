@@ -4,6 +4,17 @@ on:
   push:
     tags:
     - v*
+  workflow_dispatch:
+    inputs:
+      dotnetVersion:
+        description: .NET Framework version to use for build
+        required: false
+        default: '6.0.x'
+        type: choice
+        options:
+        - '6.0.x'
+        - '7.0.x'
+        - '8.0.x'
 
 jobs:
   build:
@@ -12,11 +23,11 @@ jobs:
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v6
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: ${{ inputs.dotnetVersion }}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build x86 version
