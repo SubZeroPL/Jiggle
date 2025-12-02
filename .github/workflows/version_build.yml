@@ -39,12 +39,12 @@ jobs:
       run: echo "framework=$((Select-Xml -Path .\Jiggle\Jiggle.csproj -XPath "/Project/PropertyGroup/TargetFramework").Node.InnerXML)" >> $env:GITHUB_OUTPUT
       shell: pwsh
     - name: Upload x86 artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Jiggle-x86.exe
         path: Jiggle/bin/Release/${{ steps.get_framework.outputs.framework }}/win-x86/publish/Jiggle.exe
     - name: Upload x64 artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: Jiggle-x64.exe
         path: Jiggle/bin/Release/${{ steps.get_framework.outputs.framework }}/win-x64/publish/Jiggle.exe
@@ -54,14 +54,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
       - name: Get version
         id: get_version
         run: echo "version=$((Select-Xml -Path .\Jiggle\Jiggle.csproj -XPath "/Project/PropertyGroup/AssemblyVersion").Node.InnerXML)" >> $env:GITHUB_OUTPUT
         shell: pwsh
       - name: Generate changelog
         id: changelog
-        uses: metcalfc/changelog-generator@v1.0.0
+        uses: metcalfc/changelog-generator@v4
         with:
           myToken: ${{ secrets.GITHUB_TOKEN }}
       - name: Download x86 build
@@ -78,19 +78,18 @@ jobs:
           path: win-x64
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: v${{ steps.get_version.outputs.version }}
-          release_name: Jiggle Release v${{ steps.get_version.outputs.version }}
-          draft: false
+          name: Jiggle Release v${{ steps.get_version.outputs.version }} (.NET ${{ inputs.dotnetVersion }})
+          tag: v${{ steps.get_version.outputs.version }}
+          commit: master
           prerelease: false
+          draft: false
           body: |
             ## Release
-            Jiggle v${{ steps.get_version.outputs.version }}
+            Jiggle v${{ steps.get_version.outputs.version }} (for .NET ${{ inputs.dotnetVersion }})
             Changelog:
-            ${{ steps.changelog.outputs.changelog }}
+            ${{ steps.changelog.outputs.changes }}
       - name: Upload x86 Release
         id: upload-release-asset-x86
         uses: actions/upload-release-asset@v1
